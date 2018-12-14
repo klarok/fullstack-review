@@ -19,9 +19,19 @@ class App extends React.Component {
     $.ajax('/repos', {
       method: 'POST',
       data: {username: term},
+      success: this.getRepos.bind(this), //What about arrow function this binding?
+      error: err => {
+        throw err;
+      }
+    });
+  }
+
+  getRepos() {
+    $.ajax('/repos', {
+      method: 'GET',
+      data: {sort: '-forks'},
       success: docs => {
-        let updated = this.state.repos.concat(docs);
-        this.setState({repos: updated});
+        this.setState({repos: docs}); 
       },
       error: err => {
         throw err;
@@ -30,11 +40,13 @@ class App extends React.Component {
   }
 
   render () {
-    return (<div>
-      <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
-      <Search onSearch={this.search.bind(this)}/>
-    </div>)
+    return (
+      <div>
+        <h1>Github Fetcher</h1>
+        <RepoList repos={this.state.repos}/>
+        <Search onSearch={this.search.bind(this)}/>
+      </div>
+    );
   }
 }
 

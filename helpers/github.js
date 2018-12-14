@@ -15,19 +15,6 @@ let getReposByUsername = (username, callback) => {
     }
   };
   request(options, callback);
-
-  // const req = request.Request(`https://api.github.com/users/${username}`);
-
-  // return fetch(`https://api.github.com/users/${username}`,
-  //   options)
-  //   .then(data => {
-  //     console.log(data);
-  //   })
-  //   .catch(err => {
-  //     // console.log('Error fetching from GitHub', err);
-  //     return err;
-  //   });
-
 }
 
 module.exports.getReposByUsername = getReposByUsername;

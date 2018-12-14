@@ -22,14 +22,14 @@ app.post('/repos', function (req, res) {
   	}
  	let parsedDocs = JSON.parse(docs);
   	save(parsedDocs);
-  	res.send(parsedDocs); //Redirect to force page refresh?
+  	res.sendStatus(201);
   });
 });
 
 app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
-  retrieve()
+  retrieve({}, '', req.query.sort)
   	.then(docs => {
   		res.send(docs);
   	})

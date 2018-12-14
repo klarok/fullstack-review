@@ -27,15 +27,14 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let retrieve = (options = {}, select = '') => {
-	// options = {forks: {$gt: 30}};
-	// select = 'full_name forks';
-	let query = Repo.find(options).select(select);
+let retrieve = (options = {}, select = '', sort = '') => {
+	let query = Repo.find(options).select(select).limit(25)
+		.sort(sort);
 	return query.then(docs => {
 		return docs;
 	})
 		.catch(err => {
-			console.log('Error querying for documents', err);
+			console.log('Error querying for documents.', err);
 
 		});
 }

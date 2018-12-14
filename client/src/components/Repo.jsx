@@ -3,7 +3,9 @@ import React from 'react';
 let Repo = ({repo}) => {
 	return (
 		<div>
-			{repo.full_name}
+			<a href={repo.html_url}>
+				{repo.full_name}: {repo.forks}
+			</a>
 		</div>
 		);
 };
