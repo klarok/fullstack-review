@@ -27,26 +27,18 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-// let repo1 = new Repo ({
-// 	id: 1,
-// 	name: 'Fake Repo',
-// 	full_name: 'So Fake',
-// 	owner: {
-// 		login: 'faker',
-// 		id: 18,
-// 	},
-// 	description: 'Doesn\'t actually exist.'
-// });
+let retrieve = (options = {}, select = '') => {
+	// options = {forks: {$gt: 30}};
+	// select = 'full_name forks';
+	let query = Repo.find(options).select(select);
+	return query.then(docs => {
+		return docs;
+	})
+		.catch(err => {
+			console.log('Error querying for documents', err);
 
-// repo1.save((err, repo1) => {
-// 	if (err) throw err;
-// 	console.log(repo1);
-// });
-
-// Repo.find((err, repos) => {
-// 	if (err) throw err;
-// 	console.log(repos);
-// });
+		});
+}
 
 let save = (repoData) => {
   // TODO: Your code here
@@ -54,15 +46,13 @@ let save = (repoData) => {
   // the MongoDB
   repoData.forEach(data => {
   	let repo = new Repo(data);
-  	console.log('here\'s data', typeof data);
-  	console.log('here\'s repo', typeof repo);
   	repo.save(err => {
   		if (err) {
   			console.log('Error saving repo to database', err);
   		}
   	});
   });
-  //What about insertMany
 }
 
+module.exports.retrieve = retrieve;
 module.exports.save = save;
