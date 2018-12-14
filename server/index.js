@@ -20,8 +20,9 @@ app.post('/repos', function (req, res) {
   	if (err) {
   		console.log('Error getting repos by username', err);
   	}
-  	save(JSON.parse(docs));
-  	res.send(docs); //Redirect to force page refresh?
+ 	let parsedDocs = JSON.parse(docs);
+  	save(parsedDocs);
+  	res.send(parsedDocs); //Redirect to force page refresh?
   });
 });
 

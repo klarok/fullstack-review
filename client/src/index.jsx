@@ -18,7 +18,14 @@ class App extends React.Component {
     // TODO
     $.ajax('/repos', {
       method: 'POST',
-      data: {username: term}
+      data: {username: term},
+      success: docs => {
+        let updated = this.state.repos.concat(docs);
+        this.setState({repos: updated});
+      },
+      error: err => {
+        throw err;
+      }
     });
   }
 
