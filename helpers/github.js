@@ -1,4 +1,5 @@
 const request = require('request');
+// const config = require('../config.js');
 
 let getReposByUsername = (username, callback) => {
   // TODO - Use the request module to request repos for a specific
@@ -11,6 +12,7 @@ let getReposByUsername = (username, callback) => {
     headers: {
       'User-Agent': 'request',
       'Authorization': `token ${process.env.TOKEN}`
+      // 'Authorization': `token ${config.TOKEN}`
     }
   };
   request(options, callback);
