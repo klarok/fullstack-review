@@ -5,7 +5,8 @@ let Repo = ({repo}) => {
 		<div>
 			<a href={repo.html_url}>
 				{repo.full_name}: {repo.forks} fork(s)
-			</a>
+			</a><br />
+			<div>{repo.description}</div>
 		</div>
 		);
 };

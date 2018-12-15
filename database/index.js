@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost/fetcher');
-mongoose.connect(process.env.MONGOLAB_URI);
+mongoose.connect('mongodb://localhost/fetcher');
+// mongoose.connect(process.env.MONGOLAB_URI);
 
 
 let db = mongoose.connection;
@@ -54,7 +54,12 @@ let save = (repoData) => {
 
   repoData.forEach(data => {
   	let repo = new Repo(data);
-  	repo.save(err => {
+  	// repo.save(err => {
+  	// 	if (err) {
+  	// 		console.log('Error saving repo to database', err);
+  	// 	}
+  	// });
+  	Repo.update({id: data.id}, data, {upsert: true}, err => {
   		if (err) {
   			console.log('Error saving repo to database', err);
   		}
