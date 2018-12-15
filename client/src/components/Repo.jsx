@@ -4,7 +4,7 @@ let Repo = ({repo}) => {
 	return (
 		<div>
 			<a href={repo.html_url}>
-				{repo.full_name}: {repo.forks} fork\(s\)
+				{repo.full_name}: {repo.forks} fork(s)
 			</a>
 		</div>
 		);

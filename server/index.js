@@ -11,7 +11,6 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
-  console.log('GETGETGETEGETEGGETGEGTEGETGEGTE')
   retrieve({}, '', req.query.sort)
   	.then(docs => {
   		res.send(docs);
@@ -35,8 +34,13 @@ app.post('/repos', function (req, res) {
   		console.log('Error getting repos by username', err);
   	}
  	let parsedDocs = JSON.parse(docs);
-  	save(parsedDocs);
-  	res.sendStatus(201);
+	if (!Array.isArray(parsedDocs)) { //i.e. {message: 'Not Found'}
+  		res.status(404).send('Sorry, couldn\'t find that user.');
+ 	} else {
+  		save(parsedDocs);
+  		res.sendStatus(201);		
+ 	}
+  
   });
 });
 

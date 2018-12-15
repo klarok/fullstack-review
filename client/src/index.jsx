@@ -24,7 +24,7 @@ class App extends React.Component {
     //     throw err;
     //   }
     // });
-    this.getRepos('/repos');
+    this.getRepos();
   }
 
   search (term) {
@@ -35,20 +35,20 @@ class App extends React.Component {
       data: {username: term},
       success: this.getRepos.bind(this), //What about arrow function this binding?
       error: err => {
-        throw err;
+        console.log('ERROR: ', err);
       }
     });
   }
 
-  getRepos(url = '/repos') {
-    $.ajax(url, {
+  getRepos() {
+    $.ajax('/repos', {
       method: 'GET',
       data: {sort: '-forks'},
       success: docs => {
         this.setState({repos: docs}); 
       },
       error: err => {
-        throw err;
+        console.log('ERROR: ', err);
       }
     });
   }
