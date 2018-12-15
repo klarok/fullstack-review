@@ -13,6 +13,20 @@ class App extends React.Component {
 
   }
 
+  componentDidMount() {
+    // $.ajax('/', {
+    //   method: 'GET',
+    //   data: {sort: '-forks'},
+    //   success: docs => {
+    //     this.setState({repos: docs}); 
+    //   },
+    //   error: err => {
+    //     throw err;
+    //   }
+    // });
+    this.getRepos('/repos');
+  }
+
   search (term) {
     console.log(`${term} was searched`);
     // TODO
@@ -26,8 +40,8 @@ class App extends React.Component {
     });
   }
 
-  getRepos() {
-    $.ajax('/repos', {
+  getRepos(url = '/repos') {
+    $.ajax(url, {
       method: 'GET',
       data: {sort: '-forks'},
       success: docs => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Repo from './Repo.jsx';
 
-const RepoList = ({repos}) => (
+const RepoList = ({repos = []}) => (
   <div>
     <h4> Repo List Component </h4>
     {

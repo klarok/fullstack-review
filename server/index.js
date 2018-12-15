@@ -8,6 +8,20 @@ app.use(bodyParser());
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
 
+app.get('/repos', function (req, res) {
+  // TODO - your code here!
+  // This route should send back the top 25 repos
+  console.log('GETGETGETEGETEGGETGEGTEGETGEGTE')
+  retrieve({}, '', req.query.sort)
+  	.then(docs => {
+  		res.send(docs);
+  	})
+  	.catch(err => {
+  		console.log('Error retrieving documents', err);
+  		res.send('oops');
+  	});
+});
+
 app.post('/repos', function (req, res) {
   // TODO - your code here!
   // This route should take the github username provided
@@ -26,22 +40,13 @@ app.post('/repos', function (req, res) {
   });
 });
 
-app.get('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should send back the top 25 repos
-  retrieve({}, '', req.query.sort)
-  	.then(docs => {
-  		res.send(docs);
-  	})
-  	.catch(err => {
-  		console.log('Error retrieving documents', err);
-  		res.send('oops');
-  	});
-});
 
-let port = 1128;
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 1128;
+}
 
 app.listen(port, function() {
-  console.log(`listening on port ${port}`);
+  console.log(`Listening on port ${port}`);
 });
 
