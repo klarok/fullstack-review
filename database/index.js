@@ -8,7 +8,7 @@ db.once('open', () => {
 
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
-  id: Number,
+  id: {type: Number, unique: true},
   name: String,
   full_name: String,
   owner: {
@@ -26,6 +26,12 @@ let repoSchema = mongoose.Schema({
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
+
+Repo.on('index', err => {
+	if (err) {
+		console.log('Error generating unique index', err);
+	}
+});
 
 let retrieve = (options = {}, select = '', sort = '') => {
 	let query = Repo.find(options).select(select).limit(25)
